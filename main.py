@@ -1,23 +1,33 @@
+import minimos_cuadrados
+import regresion_simple
+import gradiente_descendente
+import regresión_multiple
+import multiprocessing
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
 
-df = pd.read_csv('Migration_2010_to_2019.csv')
-X = df['population'].values.reshape(-1, 1)
-Y = df['from_different_state_Total'].values.reshape(-1, 1)
 
-reg = LinearRegression()
-reg.fit(X, Y)
+if __name__ == '__main__':
 
-b0 = reg.intercept_[0]
-b1 = reg.coef_[0][0]
+    df = pd.read_csv('dataframe/Migration_2010_to_2019.csv')
+    df['population'] = (df['population'] - df['population'].min()) / (df['population'].max() - df['population'].min()) * 100
+    df['from_different_state_Total'] = (df['from_different_state_Total'] - df['from_different_state_Total'].min()) / (df['from_different_state_Total'].max() - df['from_different_state_Total'].min()) * 100
+    X = df['population'].values.reshape(-1, 1)
+    Y = df['from_different_state_Total'].values.reshape(-1, 1)
 
-Y_pred = reg.predict(X)
+    p1 = multiprocessing.Process(target=minimos_cuadrados.funcion,args=(X,Y))
+    p2 = multiprocessing.Process(target=regresion_simple.funcion,args=(X,Y))
+    p3 = multiprocessing.Process(target=gradiente_descendente.funcion,args=(X,Y))
 
-plt.scatter(X, Y, color='blue')
-plt.plot(X, Y_pred, color='red')
-plt.title('Migración dentro de Estados Unidos')
-plt.xlabel('Población')
-plt.ylabel('Migrantes desde otros estados')
-plt.show()
+
+    p1.start()
+    p2.start()
+    p3.start()
+
+
+    p1.join()
+    p2.join()
+    p3.join()
+
+
