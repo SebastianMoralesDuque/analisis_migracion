@@ -1,16 +1,40 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 # Definir la función de costo (MSE)
 def cost_function(X, y, coefficients):
+    """
+    Calcula la función de costo para una regresión lineal.
+
+    Args:
+        X (ndarray): Matriz de características de tamaño (m, n+1), donde m es el número de muestras y n es el número de características.
+        y (ndarray): Vector de respuesta de tamaño (m,).
+        coefficients (ndarray): Vector de coeficientes de tamaño (n+1,).
+
+    Returns:
+        float: El valor de la función de costo para los coeficientes dados.
+    """
     m = len(y)
     J = np.sum((X.dot(coefficients) - y)**2) / (2*m)
     return J
 
 # Definir la función de actualización de los coeficientes de regresión lineal
 def gradient_descent(X, y, coefficients, alpha, num_iterations):
+    """
+    Realiza el descenso del gradiente para actualizar los coeficientes de una regresión lineal.
+
+    Args:
+        X (ndarray): Matriz de características de tamaño (m, n+1), donde m es el número de muestras y n es el número de características.
+        y (ndarray): Vector de respuesta de tamaño (m,).
+        coefficients (ndarray): Vector de coeficientes de tamaño (n+1,).
+        alpha (float): Tasa de aprendizaje.
+        num_iterations (int): Número de iteraciones.
+
+    Returns:
+        ndarray: El vector de coeficientes optimizados.
+        ndarray: Un vector de tamaño (num_iterations,) que contiene los valores de la función de costo en cada iteración.
+    """
     m = len(y)
     J_history = np.zeros(num_iterations)
     for i in range(num_iterations):
@@ -20,14 +44,23 @@ def gradient_descent(X, y, coefficients, alpha, num_iterations):
         J_history[i] = cost_function(X, y, coefficients)
     return coefficients, J_history
 
-def funcion (X,y):
+def funcion(X, y):
+    """
+    Realiza una regresión lineal usando el método de gradiente descendente y muestra los resultados.
+
+    Args:
+        X (ndarray): Matriz de características de tamaño (m, n), donde m es el número de muestras y n es el número de características.
+        y (ndarray): Vector de respuesta de tamaño (m,).
+
+    Returns:
+        None
+    """
     m = len(y)
 
     # Añadir una columna de unos a X para el término de intercepción
     X = np.column_stack((np.ones(m), X))
 
-
-    # Dividir los datos en conjuntos de entrenamiento y prueba (80% para entrenamiento, 20% para prueba)
+    # Dividir los datos en conjuntos de entrenamiento y prueba (50% para entrenamiento, 50% para prueba)
     train_size = int(0.5 * len(X))
     X_train, X_test = X[:train_size], X[train_size:]
     y_train, y_test = y[:train_size], y[train_size:]

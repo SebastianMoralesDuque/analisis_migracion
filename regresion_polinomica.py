@@ -1,12 +1,22 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from sklearn.model_selection import train_test_split
 
-def funcion(X,Y):
+def funcion(X, Y):
+    """
+    Realiza regresión polinómica de grado 3 y muestra los resultados y gráficos.
+
+    Args:
+        X (DataFrame): Matriz de características de tamaño (m, n), donde m es el número de muestras y n es el número de características.
+        Y (Series): Vector de respuesta de tamaño (m,).
+
+    Returns:
+        None
+    """
+
     # Dividir los datos en conjuntos de entrenamiento y prueba
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.14, random_state=42)
 
@@ -38,13 +48,12 @@ def funcion(X,Y):
     print("Coefficients:", poly_reg.coef_)
     print("\n")
 
-
     # Graficar los resultados
     plt.scatter(X_train['population'], Y_train, color='blue', label='Entrenamiento')
     plt.scatter(X_test['population'], Y_test, color='red', label='Prueba')
     plt.legend()
 
-    # Graficar una curva suave
+    # Graficar la curva
     X_plot = np.linspace(0, 100, 100).reshape(-1, 4)
     X_plot_poly = poly.transform(X_plot)
     Y_plot = poly_reg.predict(X_plot_poly)
