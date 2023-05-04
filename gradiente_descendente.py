@@ -50,9 +50,11 @@ def funcion (X,y):
     new_coefficients, J_history = gradient_descent(X, y, coefficients, alpha, num_iterations)
 
     # Imprimir los resultados
+    print('Resultados gradiente descendente\n')
     print('Coeficientes de la regresión lineal:', coefficients)
     print('Error cuadrático medio (MSE):', mse)
     print('Coeficiente de determinación R^2:', r2)
+    print("\n")
 
     # Graficar la función de costo en función del número de iteraciones
     plt.plot(range(num_iterations), J_history)
@@ -66,5 +68,5 @@ def funcion (X,y):
     plt.plot(X[:, 1], new_coefficients[0] + new_coefficients[1]*X[:, 1], color='red')
     plt.xlabel('Veces Jugado')
     plt.ylabel('Número de Reseñas')
-    plt.title('Regresión Lineal')
+    plt.title('Migración dentro de Estados Unidos (Gradiente descendente)')
     plt.show()

@@ -32,10 +32,12 @@ def funcion(x,y):
     # Coeficiente de determinación R^2 utilizando los datos de prueba
     r2 = r2_score(y_test, y_pred)
 
-    print(f"REGRESION SIMPLE/n")
+    print('Resultados regresion simple\n')
     print("Coeficientes de la regresión lineal: a = {:.2f}, b = {:.2f}".format(a, b))
     print("Error cuadrático medio (MSE): {:.2f}".format(mse))
     print("Coeficiente de determinación R^2: {:.2f}".format(r2))
+    print("\n")
+
 
 
     # Crear la figura y los ejes

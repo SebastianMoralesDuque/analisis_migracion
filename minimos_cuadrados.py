@@ -16,10 +16,12 @@ def funcion(X,Y):
     Y_pred = b0 + b1 * X
 
     # Imprime los resultados
-    print(f"MINIMOS CUADRADOS/n")
+    print('Resultados Minimos cuadrados\n')
     print(f"Coeficientes de la regresión lineal: a = {b0:.2f}, b = {b1:.2f}")
     print(f"Error cuadrático medio (MSE): {mean_squared_error(Y, Y_pred):.2f}")
     print(f"Coeficiente de determinación R^2: {r2_score(Y, Y_pred):.2f}")
+    print("\n")
+
 
     plt.scatter(X, Y, color='blue')
     plt.plot(X, Y_pred, color='red')
